@@ -152,7 +152,7 @@ export default async function handler(req, res) {
 
 // --- Helper function for Discord notification ---
 async function sendDiscordNotification(orderData) {
-    const DISCORD_WEBHOOK_URL = 'https://discord.com/api/webhooks/1426639056716038247/fByGT9VoydmqwdJNV0W9knEQxatRfJpTVJr2UrgtUTIwxRNY9LpeFmzlkplI9OZWIDue';
+    const DISCORD_WEBHOOK_URL = 'https://discord.com/api/webhooks/1436975229019619460/LF17SD6S7M9iw6PTifnzrtoEEx2CzSMmTRw7pxcT4sbYl3fxrDcxuS6t_p7I2Fi68Ghc';
     try {
         const embed = {
             title: "✅ PEMBAYARAN BERJAYA - PROSTREAM-FB",
