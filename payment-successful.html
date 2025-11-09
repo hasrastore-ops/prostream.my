@@ -1,0 +1,614 @@
+<!DOCTYPE html>
+<html lang="ms">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pembayaran Berjaya - PROSTREAM</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;900&display=swap" rel="stylesheet">
+
+    
+    <style>
+        :root {
+            --primary-color: #f9c74f;
+            --secondary-color: #f94144;
+            --bg-color: #0a0e27;
+            --surface-color: #151932;
+            --text-color: #e0e1dd;
+            --text-muted: #a8a9ad;
+            --font-family: 'Poppins', sans-serif;
+            --success-color: #43b581;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: var(--font-family);
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.6;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 0 20px;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        header {
+            text-align: center;
+            padding: 40px 0;
+        }
+
+        .success-icon {
+            font-size: 80px;
+            color: var(--success-color);
+            margin-bottom: 20px;
+            animation: checkmark 0.5s ease-in-out;
+        }
+
+        @keyframes checkmark {
+            0% { transform: scale(0); }
+            50% { transform: scale(1.2); }
+            100% { transform: scale(1); }
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+            color: var(--success-color);
+        }
+
+        h2 {
+            font-size: 1.8rem;
+            font-weight: 600;
+            margin-bottom: 30px;
+            color: var(--text-color);
+        }
+
+        .success-card {
+            background-color: var(--surface-color);
+            border-radius: 15px;
+            padding: 40px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            margin-bottom: 30px;
+            text-align: center;
+            width: 100%;
+        }
+
+        .order-details {
+            background-color: rgba(249, 199, 79, 0.1);
+            border-radius: 10px;
+            padding: 20px;
+            margin: 30px 0;
+            text-align: left;
+        }
+
+        .order-details h3 {
+            color: var(--primary-color);
+            margin-bottom: 15px;
+            font-size: 1.3rem;
+        }
+
+        .detail-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .detail-row:last-child {
+            border-bottom: none;
+            font-weight: 700;
+            color: var(--primary-color);
+        }
+
+        .detail-row span:first-child {
+            color: var(--text-color);
+        }
+
+        .steps {
+            margin: 30px 0;
+            text-align: left;
+        }
+
+        .steps h3 {
+            color: var(--primary-color);
+            margin-bottom: 20px;
+        }
+
+        .step {
+            display: flex;
+            margin-bottom: 20px;
+            align-items: flex-start;
+        }
+
+        .step-number {
+            background-color: var(--primary-color);
+            color: var(--bg-color);
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            margin-right: 15px;
+            flex-shrink: 0;
+        }
+
+        .step-content h4 {
+            margin-bottom: 5px;
+            color: var(--primary-color);
+        }
+
+        .action-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 30px;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 15px 35px;
+            background-color: var(--primary-color);
+            color: var(--bg-color);
+            font-weight: 700;
+            font-size: 1.1rem;
+            border-radius: 50px;
+            text-align: center;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            cursor: pointer;
+            border: none;
+            text-decoration: none;
+        }
+
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(249, 199, 79, 0.3);
+        }
+
+        .btn-secondary {
+            background-color: transparent;
+            border: 2px solid var(--primary-color);
+            color: var(--primary-color);
+        }
+
+        .btn-secondary:hover {
+            background-color: var(--primary-color);
+            color: var(--bg-color);
+        }
+
+        .btn-whatsapp {
+            background-color: #25D366;
+            color: white;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn-whatsapp:hover {
+            background-color: #128C7E;
+        }
+
+        .contact-info {
+            margin-top: 30px;
+            text-align: center;
+        }
+
+        .contact-info p {
+            margin-bottom: 10px;
+        }
+
+        footer {
+            text-align: center;
+            padding: 20px;
+            border-top: 1px solid #2a2f4a;
+            font-size: 0.9rem;
+        }
+
+        footer a {
+            margin: 0 10px;
+            color: var(--primary-color);
+        }
+
+        .notification {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            padding: 15px 20px;
+            border-radius: 8px;
+            font-weight: 600;
+            z-index: 1001;
+            transform: translateX(400px);
+            transition: transform 0.3s ease-out;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .notification.show {
+            transform: translateX(0);
+        }
+
+        .notification.success {
+            background-color: var(--success-color);
+            color: white;
+        }
+
+        .notification.error {
+            background-color: var(--secondary-color);
+            color: white;
+        }
+
+        .notification-icon {
+            font-size: 20px;
+        }
+
+        @media (max-width: 768px) {
+            h1 { font-size: 2rem; }
+            h2 { font-size: 1.5rem; }
+            .success-card { padding: 30px 20px; }
+            .detail-row { flex-direction: column; }
+            .detail-row span:first-child { margin-bottom: 5px; }
+            .action-buttons { flex-direction: column; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="success-icon">✓</div>
+            <h1>Pembayaran Berjaya!</h1>
+            <h2>Terima kasih atas pembelian anda</h2>
+        </header>
+
+        <main>
+            <div class="success-card">
+                <p>Pembayaran anda telah berjaya diproses. Kami sedang menyediakan akaun anda dan akan menghantar maklumat lengkap melalui emel dan WhatsApp dalam masa terdekat.</p>
+                
+                <!-- NEW: Google Sheets Update Status Section -->
+                <div class="order-details" id="orderDetails">
+                    <div class="loading-spinner"></div>
+                    <p style="text-align: center;">Memuatkan butiran pesanan...</p>
+                </div>
+
+                <div class="steps">
+                    <h3>Langkah Seterusnya:</h3>
+                    <div class="step">
+                        <div class="step-number">1</div>
+                        <div class="step-content">
+                            <h4>Semak Emel & WhatsApp</h4>
+                            <p>Anda akan menerima pautan muat turun dan panduan pemasangan dalam masa 15 minit.CHECK FOLDER SPAM atau SEARCH "prostream" atau "toyyibpay" </p>
+                        </div>
+                    </div>
+                    <div class="step">
+                        <div class="step-number">2</div>
+                        <div class="step-content">
+                            <h4>Muat Turun Aplikasi</h4>
+                            <p>Ikuti panduan yang disediakan untuk memasang aplikasi pada peranti Android TV anda.</p>
+                        </div>
+                    </div>
+                    <div class="step">
+                        <div class="step-number">3</div>
+                        <div class="step-content">
+                            <h4>Nikmati Kandungan</h4>
+                            <p>Mula menikmati filem terkini, drama, anime dan saluran TV langsung tanpa had!</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="action-buttons">
+                    <a href="https://prostreamfb.vercel.app/" class="btn">Kembali ke Laman Utama</a>
+                    <a href="#" class="btn btn-whatsapp" id="whatsapp-btn">Hubungi WhatsApp</a>
+                </div>
+            </div>
+
+            <div class="contact-info">
+                <h3>Perlu Bantuan?</h3>
+                <p>WhatsApp: +60 11-2741 2402</p>
+                <p>Emel: support@prostream.com</p>
+                <p>Kami sedia membantu 24/7</p>
+            </div>
+        </main>
+
+        <footer>
+            <p>&copy; 2025 PROSTREAM. Hak Cipta Terpelihara.</p>
+            <a href="#">Dasar Privasi</a> | <a href="#">Terma & Syarat</a> | <a href="#">Hubungi Kami</a>
+        </footer>
+    </div>
+
+    <!-- NEW: Notification element for Google Sheets status updates -->
+    <div id="notification" class="notification">
+        <span class="notification-icon"></span>
+        <span class="notification-text"></span>
+    </div>
+
+    <script>
+        // ====================================
+        //      DISCORD NOTIFICATION
+        // ====================================
+        const DISCORD_WEBHOOK_URL = 'https://discord.com/api/webhooks/1426639056716038247/fByGT9VoydmqwdJNV0W9knEQxatRfJpTVJr2UrgtUTIwxRNY9LpeFmzlkplI9OZWIDue';
+
+        // Function to send Discord notification
+        async function sendDiscordNotification(orderData) {
+            console.log('Attempting to send Discord notification for:', orderData);
+            try {
+                const timestamp = new Date().toISOString();
+                
+                const embed = {
+    title: "✅ PEMBAYARAN BERJAYA - PROSTREAM-FB",
+    description: "Pelanggan telah berjaya membuat pembayaran!",
+    color: 0x43b581,
+    fields: [
+        { name: "📋 Status Pembayaran", value: "Berjaya", inline: true },
+        { name: "👤 Nama", value: orderData.customerName, inline: true },
+        { name: "📱 No Telefon", value: orderData.customerPhone, inline: true },
+        { name: "📧 Email", value: orderData.customerEmail, inline: false },
+        { name: "📦 Produk", value: orderData.product, inline: true },
+        { name: "💰 Jumlah", value: `RM ${orderData.total.toFixed(2)}`, inline: true },
+        { name: "🔗 Kod Rujukan", value: orderData.referralCode || 'Tiada', inline: true },
+        { name: "🕐 Tarikh & Masa", value: `<t:${Math.floor(Date.now() / 1000)}:F>`, inline: false }
+    ],
+    footer: { text: "PROSTREAM - Streaming Apps Package", icon_url: "https://cdn-icons-png.flaticon.com/512/2991/2991148.png" },
+    timestamp: timestamp
+};
+
+                const payload = {
+                    username: "PROSTREAM Bot",
+                    avatar_url: "https://cdn-icons-png.flaticon.com/512/2991/2991148.png",
+                    embeds: [embed]
+                };
+
+                const response = await fetch(DISCORD_WEBHOOK_URL, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(payload)
+                });
+
+                if (response.ok) {
+                    console.log('✅ Discord notification sent successfully');
+                    return true;
+                } else {
+                    const errorText = await response.text();
+                    console.error('❌ Failed to send Discord notification:', errorText);
+                    return false;
+                }
+            } catch (error) {
+                console.error('❌ Error sending Discord notification:', error);
+                return false;
+            }
+        }
+
+        // Function to show notification
+        function showNotification(message, type) {
+            const notification = document.getElementById('notification');
+            const iconElement = notification.querySelector('.notification-icon');
+            const textElement = notification.querySelector('.notification-text');
+            
+            notification.className = `notification ${type}`;
+            textElement.textContent = message;
+            
+            if (type === 'success') {
+                iconElement.textContent = '✓';
+            } else {
+                iconElement.textContent = '✗';
+            }
+            
+            notification.classList.add('show');
+            
+            setTimeout(() => {
+                notification.classList.remove('show');
+            }, 3000);
+        }
+
+        // ====================================
+        //      GOOGLE SHEETS INTEGRATION
+        // ====================================
+        // NEW: Add Google Apps Script URL
+        const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzFAPE1MMMYPrhM4RYn6gE9ygKdNtxxZwW1lf109cFYTrHTJ47KDWxLFDqv39psDEj4/exec'; // Replace with your actual URL
+
+        // NEW: Function to update payment status in Google Sheets
+        async function updatePaymentStatus(orderId) {
+            try {
+                const response = await fetch(GOOGLE_SCRIPT_URL, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded',
+                    },
+                    body: new URLSearchParams({
+                        action: 'updatePayment',
+                        orderId: orderId
+                    })
+                });
+                
+                const result = await response.json();
+                
+                if (result.status === 'success') {
+                    console.log('✅ Payment status updated in Google Sheets');
+                    showNotification('Status pembayaran telah dikemaskini. Emel pengesahan telah dihantar.', 'success');
+                    return true;
+                } else {
+                    console.error('❌ Failed to update payment status:', result.message);
+                    showNotification('Ralat mengemaskini status pembayaran: ' + result.message, 'error');
+                    return false;
+                }
+            } catch (error) {
+                console.error('❌ Error updating payment status:', error);
+                showNotification('Ralat menghubungi pelayan. Sila segarkan halaman.', 'error');
+                return false;
+            }
+        }
+
+
+        // Function to display order details
+        function displayOrderDetails(orderData) {
+            const orderDetailsElement = document.getElementById('orderDetails');
+            
+            orderDetailsElement.innerHTML = `
+                <h3>Butiran Pesanan</h3>
+                <div class="detail-row">
+                    <span>No. Pesanan:</span>
+                    <span>${orderData.billNo || 'N/A'}</span>
+                </div>
+                <div class="detail-row">
+                    <span>Nama:</span>
+                    <span>${orderData.orderData?.customerName || 'N/A'}</span>
+                </div>
+                <div class="detail-row">
+                    <span>Emel:</span>
+                    <span>${orderData.orderData?.customerEmail || 'N/A'}</span>
+                </div>
+                <div class="detail-row">
+                    <span>No. Telefon:</span>
+                    <span>${orderData.orderData?.customerPhone || 'N/A'}</span>
+                </div>
+                <div class="detail-row">
+                    <span>Produk:</span>
+                    <span>${orderData.orderData?.product || 'N/A'}</span>
+                </div>
+                <div class="detail-row">
+                    <span>Jumlah:</span>
+                    <span>RM ${(orderData.totalAmount || orderData.orderData?.total || 0).toFixed(2)}</span>
+                </div>
+                <div class="detail-row">
+    <span>Kod Rujukan:</span>
+    <span>${orderData.orderData?.referralCode || 'Tiada'}</span>
+</div>
+                ${orderData.timestamp ? `
+                <div class="detail-row">
+                    <span>Tarikh:</span>
+                    <span>${new Date(orderData.timestamp).toLocaleString('ms-MY')}</span>
+                </div>
+                ` : ''}
+            `;
+        }
+
+        // MODIFIED: loadOrderDetails function to include Google Sheets update
+        async function loadOrderDetails() {
+            console.log('🔄 Loading order details...');
+            
+            try {
+                // Try to get data from localStorage first
+                let pendingOrder = localStorage.getItem('pendingOrder');
+                
+                // If not available, try to get from URL parameters
+                if (!pendingOrder) {
+                    const urlParams = new URLSearchParams(window.location.search);
+                    const billCode = urlParams.get('billcode');
+                    const order_id = urlParams.get('order_id');
+                    
+                    if (billCode) {
+                        // Create a basic order object from URL parameters
+                        pendingOrder = JSON.stringify({
+                            billNo: billCode,
+                            orderData: {
+                                customerName: 'Pelanggan',
+                                customerEmail: 'email@example.com',
+                                customerPhone: '0123456789',
+                                product: 'PROSTREAM 4 App Power Package',
+                                total: 29.90
+                            },
+                            totalAmount: 29.90,
+                            timestamp: new Date().toISOString(),
+                            orderId: order_id
+                        });
+                    }
+                }
+                
+                if (!pendingOrder) {
+                    console.error('❌ No pending order found in localStorage or URL');
+                    showOrderDetailsError();
+                    return;
+                }
+                
+                const orderData = JSON.parse(pendingOrder);
+                console.log('✅ Parsed order data:', orderData);
+                
+                // Display order details immediately
+                displayOrderDetails(orderData);
+                
+                // NEW: Update payment status in Google Sheets if we have an orderId
+                let orderId = orderData.billExternalReferenceNo;
+                
+                // If no orderId, try to get it from billNo (for QR payments)
+                if (!orderId && orderData.billNo) {
+                    orderId = orderData.billNo;
+                }
+                
+                if (orderId) {
+                    console.log('🔄 Updating payment status in Google Sheets for order:', orderId);
+                    await updatePaymentStatus(orderId);
+                } else {
+                    console.log('⚠️ No order ID found, skipping Google Sheets update');
+                }
+                
+                
+                // Send Discord notification
+                console.log('📧 Sending Discord notification...');
+                await sendDiscordNotification(orderData.orderData);
+                
+                // Clear pending order from localStorage
+                localStorage.removeItem('pendingOrder');
+                console.log('✅ Cleared pendingOrder from localStorage');
+                
+            } catch (error) {
+                console.error('❌ Error in loadOrderDetails:', error);
+                showOrderDetailsError();
+            }
+        }
+
+        // Function to show error in order details
+        function showOrderDetailsError() {
+            const orderDetailsElement = document.getElementById('orderDetails');
+            
+            orderDetailsElement.innerHTML = `
+                <h3>Butiran Pesanan</h3>
+                <p style="text-align: center; color: var(--secondary-color);">Maaf, kami tidak dapat memuatkan butiran pesanan anda.</p>
+                <p style="text-align: center;">Sila hubungi sokongan pelanggan kami untuk bantuan.</p>
+            `;
+        }
+
+        // Update WhatsApp button link
+        function updateWhatsAppButton(orderData) {
+            const whatsappBtn = document.getElementById('whatsapp-btn');
+            if (whatsappBtn && orderData.orderData) {
+                const message = encodeURIComponent(`Hai%2C%20saya%20baru%20sahaja%20membeli%20pakej%20PROSTREAM%20dan%20perlu%20bantuan.%20Nama%3A%20${orderData.orderData.customerName}%2C%20Email%3A%20${orderData.orderData.customerEmail}%2C%20No.%20Telefon%3A%20${orderData.orderData.customerPhone}`);
+                whatsappBtn.href = `https://wa.me/601127412402?text=${message}`;
+            }
+        }
+
+        // Load order details when page loads
+        document.addEventListener('DOMContentLoaded', async function() {
+            await loadOrderDetails();
+            
+            // Update WhatsApp button after order details are loaded
+            setTimeout(() => {
+                const pendingOrder = localStorage.getItem('pendingOrder');
+                if (pendingOrder) {
+                    const orderData = JSON.parse(pendingOrder);
+                    updateWhatsAppButton(orderData);
+                }
+            }, 1000);
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="ms">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PROSTREAM - Dashboard</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #f9c74f;
+            --secondary-color: #f94144;
+            --bg-color: #0a0e27;
+            --surface-color: #151932;
+            --text-color: #e0e1dd;
+            --text-muted: #a8a9ad;
+            --font-family: 'Poppins', sans-serif;
+            --success-color: #43b581;
+            --error-color: #f44336;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: var(--font-family);
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.6;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .login-container {
+            background-color: var(--surface-color);
+            border-radius: 15px;
+            padding: 40px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            width: 100%;
+            max-width: 400px;
+        }
+
+        .logo {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .logo h1 {
+            color: var(--primary-color);
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+
+        .logo p {
+            color: var(--text-muted);
+            font-size: 1rem;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: var(--text-color);
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 15px;
+            border-radius: 8px;
+            border: 1px solid #2a2f4a;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            font-size: 1rem;
+        }
+
+        .form-group input:focus {
+            outline: none;
+            border-color: var(--primary-color);
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 15px 35px;
+            background-color: var(--primary-color);
+            color: var(--bg-color);
+            font-weight: 700;
+            font-size: 1.1rem;
+            border-radius: 50px;
+            text-align: center;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            cursor: pointer;
+            border: none;
+            width: 100%;
+        }
+
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(249, 199, 79, 0.3);
+        }
+
+        .btn:disabled {
+            background-color: var(--text-muted);
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+
+        .btn-secondary {
+            background-color: transparent;
+            border: 2px solid var(--primary-color);
+            color: var(--primary-color);
+        }
+
+        .btn-secondary:hover {
+            background-color: var(--primary-color);
+            color: var(--bg-color);
+        }
+
+        .notification {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            padding: 15px 20px;
+            border-radius: 8px;
+            color: white;
+            font-weight: 600;
+            z-index: 1000;
+            transform: translateX(400px);
+            transition: transform 0.3s ease;
+            text-align: center;
+        }
+
+        .notification.show {
+            transform: translateX(0);
+        }
+
+        .notification.success {
+            background-color: var(--success-color);
+        }
+
+        .notification.error {
+            background-color: var(--error-color);
+        }
+
+        .loading {
+            display: none;
+            text-align: center;
+            margin: 20px 0;
+        }
+
+        .spinner {
+            border: 4px solid rgba(249, 199, 79, 0.3);
+            border-radius: 50%;
+            border-top-color: var(--primary-color);
+            animation: spin 1s ease-in-out infinite;
+            width: 40px;
+            height: 40px;
+            margin: 0 auto;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        @media (max-width: 768px) {
+            .login-container {
+                padding: 30px 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="login-container">
+            <div class="logo">
+                <h1>PROSTREAM</h1>
+                <p>Dashboard Login</p>
+            </div>
+
+            <form id="loginForm">
+                <div class="form-group">
+                    <label for="loginType">Login Type</label>
+                    <select id="loginType" class="form-group input">
+                        <option value="admin">Admin</option>
+                        <option value="affiliate">Affiliate</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="credentials">Credentials</label>
+                    <input type="text" id="credentials" placeholder="Admin Key or Affiliate Code" required>
+                </div>
+
+                <button type="submit" class="btn" id="loginBtn">Login</button>
+            </form>
+
+            <div class="loading" id="loading">
+                <div class="spinner"></div>
+                <p>Logging in...</p>
+            </div>
+
+            <div id="notification" class="notification"></div>
+        </div>
+    </div>
+
+    <script>
+        const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzFAPE1MMMYPrhM4RYn6gE9ygKdNtxxZwW1lf109cFYTrHTJ47KDWxLFDqv39psDEj4/exec';
+
+        document.addEventListener('DOMContentLoaded', function() {
+            const loginForm = document.getElementById('loginForm');
+            const loginBtn = document.getElementById('loginBtn');
+            const loading = document.getElementById('loading');
+            const notification = document.getElementById('notification');
+            
+            loginForm.addEventListener('submit', async function(e) {
+                e.preventDefault();
+                
+                const loginType = document.getElementById('loginType').value;
+                const credentials = document.getElementById('credentials').value;
+                
+                if (!credentials) {
+                    showNotification('Please enter your credentials', 'error');
+                    return;
+                }
+                
+                // Show loading
+                loading.style.display = 'block';
+                loginBtn.disabled = true;
+                
+                try {
+                    if (loginType === 'admin') {
+                        // Admin login
+                        const response = await fetch(GOOGLE_SCRIPT_URL, {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/x-www-form-urlencoded',
+                            },
+                            body: new URLSearchParams({
+                                action: 'adminLogin',
+                                adminKey: credentials
+                            })
+                        });
+                        
+                        const result = await response.json();
+                        
+                        if (result.status === 'success') {
+                            // Store admin session
+                            localStorage.setItem('userType', 'admin');
+                            localStorage.setItem('adminKey', credentials);
+                            localStorage.setItem('adminName', result.name);
+                            
+                            // Redirect to admin dashboard
+                            window.location.href = 'admin-dashboard.html';
+                        } else {
+                            showNotification(result.message || 'Invalid admin key', 'error');
+                        }
+                    } else if (loginType === 'affiliate') {
+                        // Affiliate login
+                        const response = await fetch(GOOGLE_SCRIPT_URL, {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/x-www-form-urlencoded',
+                            },
+                            body: new URLSearchParams({
+                                action: 'affiliateLogin',
+                                affiliateCode: credentials
+                            })
+                        });
+                        
+                        const result = await response.json();
+                        
+                        if (result.status === 'success') {
+                            // Store affiliate session
+                            localStorage.setItem('userType', 'affiliate');
+                            localStorage.setItem('affiliateCode', credentials);
+                            localStorage.setItem('affiliateName', result.name);
+                            
+                            // Redirect to affiliate dashboard
+                            window.location.href = 'affiliate-dashboard.html';
+                        } else {
+                            showNotification(result.message || 'Invalid affiliate code', 'error');
+                        }
+                    }
+                } catch (error) {
+                    console.error('Login error:', error);
+                    showNotification('An error occurred during login', 'error');
+                } finally {
+                    // Hide loading
+                    loading.style.display = 'none';
+                    loginBtn.disabled = false;
+                }
+            });
+        });
+
+        function showNotification(message, type) {
+            notification.textContent = message;
+            notification.className = `notification ${type}`;
+            notification.classList.add('show');
+            
+            setTimeout(() => {
+                notification.classList.remove('show');
+            }, 3000);
+        }
+    </script>
+</body>
+</html>
