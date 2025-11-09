@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PROSTREAM - Dashboard</title>
+    <title>PROSTREAM - Admin Dashboard</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;900&display=swap" rel="stylesheet">
@@ -31,12 +31,87 @@
             background-color: var(--bg-color);
             color: var(--text-color);
             line-height: 1.6;
+            min-height: 100vh;
         }
 
         .container {
-            max-width: 800px;
+            max-width: 1200px;
             margin: 0 auto;
             padding: 0 20px;
+        }
+
+        /* Utility Class */
+        .hidden { display: none !important; }
+
+        /* Login View Styles */
+        .login-view {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+        .login-container {
+            background-color: var(--surface-color);
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+            width: 100%;
+            max-width: 400px;
+            text-align: center;
+        }
+        .login-container h1 {
+            color: var(--primary-color);
+            margin-bottom: 10px;
+        }
+        .login-container p {
+            color: var(--text-muted);
+            margin-bottom: 30px;
+        }
+        .form-group {
+            margin-bottom: 20px;
+            text-align: left;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+        }
+        .form-control {
+            width: 100%;
+            padding: 12px 15px;
+            background-color: var(--bg-color);
+            border: 1px solid #2a2f4a;
+            border-radius: 5px;
+            color: var(--text-color);
+            font-size: 1rem;
+        }
+        .form-control:focus {
+            outline: none;
+            border-color: var(--primary-color);
+        }
+        .login-btn {
+            width: 100%;
+            background-color: var(--primary-color);
+            color: var(--bg-color);
+            border: none;
+            padding: 12px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: 700;
+            font-size: 1rem;
+            transition: background-color 0.3s ease;
+        }
+        .login-btn:hover {
+            background-color: #f8d568;
+        }
+        .login-btn:disabled {
+            background-color: #555;
+            cursor: not-allowed;
+        }
+
+        /* Dashboard View Styles */
+        .dashboard-view {
+            padding-top: 30px;
         }
 
         header {
@@ -56,7 +131,7 @@
             color: var(--primary-color);
             font-size: 1.8rem;
             font-weight: 700;
-            margin-bottom: 10px;
+            margin-bottom: 5px;
         }
 
         .logo p {
@@ -67,7 +142,7 @@
         .user-info {
             display: flex;
             align-items: center;
-            gap: 10px;
+            gap: 15px;
         }
 
         .logout-btn {
@@ -114,7 +189,7 @@
 
         .stats-container {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr);
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
             gap: 20px;
             margin-bottom: 30px;
         }
@@ -164,6 +239,22 @@
             font-weight: 600;
         }
 
+        .btn {
+            padding: 6px 12px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 0.8rem;
+        }
+        .btn-danger {
+            background-color: var(--secondary-color);
+            color: white;
+        }
+        .btn-danger:hover {
+            background-color: #d62828;
+        }
+
         .notification {
             position: fixed;
             top: 20px;
@@ -174,7 +265,7 @@
             font-weight: 600;
             z-index: 1000;
             transform: translateX(400px);
-            transition: transform: 0.3s ease;
+            transition: transform 0.3s ease;
         }
 
         .notification.show {
@@ -190,9 +281,9 @@
         }
 
         .loading {
-            display: none;
             text-align: center;
             margin: 20px 0;
+            padding: 20px;
         }
 
         .spinner {
@@ -210,29 +301,51 @@
         }
 
         @media (max-width: 768px) {
-            .login-container {
-                padding: 30px 20px;
+            .header-content {
+                flex-direction: column;
+                gap: 15px;
             }
         }
     </style>
 </head>
 <body>
-    <div class="container">
+
+    <!-- LOGIN VIEW -->
+    <div id="loginView" class="login-view">
         <div class="login-container">
             <div class="logo">
                 <h1>PROSTREAM</h1>
-                <p>Dashboard</p>
+                <p>Admin Login</p>
             </div>
-            <div class="user-info">
-                <span id="adminName">Admin</span>
-                <button class="logout-btn" id="logoutBtn">Logout</button>
-            </div>
+            <form id="loginForm">
+                <div class="form-group">
+                    <label for="adminKey">Admin Key</label>
+                    <input type="password" id="adminKeyInput" class="form-control" placeholder="Enter your admin key" required>
+                </div>
+                <button type="submit" class="login-btn" id="loginBtn">Login</button>
+            </form>
         </div>
+    </div>
+
+    <!-- DASHBOARD VIEW -->
+    <div id="dashboardView" class="dashboard-view container hidden">
+        <header>
+            <div class="header-content">
+                <div class="logo">
+                    <h1>PROSTREAM</h1>
+                    <p>Admin Dashboard</p>
+                </div>
+                <div class="user-info">
+                    <span id="adminName">Admin</span>
+                    <button class="logout-btn" id="logoutBtn">Logout</button>
+                </div>
+            </div>
+        </header>
 
         <div class="dashboard-tabs">
             <div class="tab active" data-tab="overview">Overview</div>
-                <div class="tab" data-tab="affiliates">Affiliates</div>
-                <div class="tab" data-tab="orders">Orders</div>
+            <div class="tab" data-tab="affiliates">Affiliates</div>
+            <div class="tab" data-tab="orders">Orders</div>
         </div>
 
         <div class="tab-content active" id="overview">
@@ -250,7 +363,7 @@
                     <div class="stat-label">Total Revenue</div>
                 </div>
             </div>
-
+            <h3 style="margin-bottom: 15px;">Recent Orders</h3>
             <div class="table-container">
                 <table>
                     <thead>
@@ -259,246 +372,329 @@
                             <th>Name</th>
                             <th>Email</th>
                             <th>Amount</th>
-                            <th>Referral Code</th>
                             <th>Status</th>
                             <th>Date</th>
                         </tr>
                     </thead>
-                    <tbody id="ordersTableBody">
+                    <tbody id="recentOrdersTableBody">
                         <!-- Orders will be populated here -->
                     </tbody>
                 </table>
             </div>
         </div>
 
+        <div class="tab-content" id="affiliates">
+            <div class="table-container">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Affiliate Code</th>
+                            <th>Name</th>
+                            <th>Email</th>
+                            <th>Phone</th>
+                            <th>Join Date</th>
+                            <th>Status</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody id="affiliatesTableBody">
+                        <!-- Affiliates will be populated here -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div class="tab-content" id="orders">
+            <div class="table-container">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Order ID</th>
+                            <th>Name</th>
+                            <th>Email</th>
+                            <th>Phone</th>
+                            <th>Package</th>
+                            <th>Amount</th>
+                            <th>Referral Code</th>
+                            <th>Status</th>
+                            <th>Date</th>
+                        </tr>
+                    </thead>
+                    <tbody id="allOrdersTableBody">
+                        <!-- Orders will be populated here -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        
         <div id="notification" class="notification"></div>
+        <div id="loadingIndicator" class="loading hidden">
+            <div class="spinner"></div>
+            <p>Loading data...</p>
+        </div>
     </div>
 
     <script>
         const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzFAPE1MMYPrhM4RYn6gE9ygKdNtxxZwW1lf109cFYTrHTJ47KDWxLFDqv39psDEj4/exec';
 
         document.addEventListener('DOMContentLoaded', function() {
-            // Check if user is logged in
-            const userType = localStorage.getItem('userType');
-            const adminKey = localStorage.getItem('adminKey');
-            
-            if (userType !== 'admin' || !adminKey) {
-                // Redirect to login page if not logged in
-                window.location.href = 'dashboard.html';
-                return;
-            }
-            
-            // Set admin name
-            document.getElementById('adminName').textContent = localStorage.getItem('adminName') || 'Admin';
-            
-            // Load dashboard data
-            loadDashboardData();
-            
-            // Setup tab navigation
-            const tabs = document.querySelectorAll('.tab');
-            const tabContents = document.querySelectorAll('.tab-content');
-            
-            tabs.forEach(tab => {
-                tab.addEventListener('click', function() {
-                    // Remove active class from all tabs and contents
-                    tabs.forEach(t => t.classList.remove('active'));
-                    tabContents.forEach(tc => tc.classList.remove('active'));
-                    
-                    // Add active class to clicked tab and corresponding content
-                    this.classList.add('active');
-                    const tabId = this.getAttribute('data-tab');
-                    document.getElementById(tabId).classList.add('active');
-                });
-                
-                // Setup logout handler
-                document.getElementById('logoutBtn').addEventListener('click', function() {
-                    localStorage.removeItem('userType');
-                    localStorage.removeItem('adminKey');
-                    localStorage.removeItem('adminName');
-                    window.location.href = 'dashboard.html';
-                });
-            });
-
+            checkAuthStatus();
+            setupEventListeners();
         });
 
-        async function loadDashboardData() {
+        function checkAuthStatus() {
+            const userType = localStorage.getItem('userType');
+            const adminKey = localStorage.getItem('adminKey');
+
+            if (userType === 'admin' && adminKey) {
+                showDashboard();
+                loadDashboardData();
+            } else {
+                showLogin();
+            }
+        }
+
+        function setupEventListeners() {
+            // Login form
+            document.getElementById('loginForm').addEventListener('submit', handleLogin);
+
+            // Logout button
+            document.getElementById('logoutBtn').addEventListener('click', handleLogout);
+
+            // Dashboard tabs
+            const tabs = document.querySelectorAll('.tab');
+            tabs.forEach(tab => {
+                tab.addEventListener('click', function() {
+                    const tabId = this.getAttribute('data-tab');
+                    switchTab(tabId);
+                });
+            });
+        }
+        
+        function showLogin() {
+            document.getElementById('loginView').classList.remove('hidden');
+            document.getElementById('dashboardView').classList.add('hidden');
+        }
+
+        function showDashboard() {
+            document.getElementById('loginView').classList.add('hidden');
+            document.getElementById('dashboardView').classList.remove('hidden');
+            document.getElementById('adminName').textContent = localStorage.getItem('adminName') || 'Admin';
+        }
+
+        async function handleLogin(event) {
+            event.preventDefault();
+            const adminKey = document.getElementById('adminKeyInput').value;
+            const loginBtn = document.getElementById('loginBtn');
+            
+            loginBtn.disabled = true;
+            loginBtn.textContent = 'Logging in...';
+
             try {
-                // Test connection first
-                const testResult = await testConnection();
-                
-                if (testResult.error) {
-                    console.error('Connection test failed:', testResult.error);
-                    showNotification('Connection to Google Apps Script failed', 'error');
-                    return;
+                const response = await fetch(GOOGLE_SCRIPT_URL, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                    body: new URLSearchParams({ action: 'adminLogin', adminKey: adminKey })
+                });
+
+                const result = await response.json();
+
+                if (result.status === 'success') {
+                    localStorage.setItem('userType', 'admin');
+                    localStorage.setItem('adminKey', adminKey);
+                    localStorage.setItem('adminName', result.adminData.name);
+                    showNotification('Login successful!', 'success');
+                    showDashboard();
+                    loadDashboardData();
+                } else {
+                    showNotification(result.message || 'Login failed', 'error');
                 }
-                
-                console.log('Connection test successful:', testResult);
-                
-                // Load overview stats
-                loadOverviewStats();
-                
-                // Load affiliates
-                loadAffiliates();
-                
-                // Load orders
-                loadOrders();
+            } catch (error) {
+                console.error('Login error:', error);
+                showNotification('An error occurred during login.', 'error');
+            } finally {
+                loginBtn.disabled = false;
+                loginBtn.textContent = 'Login';
+            }
+        }
+
+        function handleLogout() {
+            localStorage.removeItem('userType');
+            localStorage.removeItem('adminKey');
+            localStorage.removeItem('adminName');
+            showNotification('Logged out successfully', 'success');
+            showLogin();
+        }
+
+        function switchTab(tabId) {
+            document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+            document.querySelectorAll('.tab-content').forEach(tc => tc.classList.remove('active'));
+            
+            document.querySelector(`[data-tab="${tabId}"]`).classList.add('active');
+            document.getElementById(tabId).classList.add('active');
+        }
+
+        async function loadDashboardData() {
+            showLoadingIndicator(true);
+            try {
+                await Promise.all([
+                    loadOverviewStats(),
+                    loadAffiliates(),
+                    loadAllOrders()
+                ]);
             } catch (error) {
                 console.error('Error loading dashboard data:', error);
-                showNotification('Error loading dashboard data', 'error');
+                showNotification('Failed to load dashboard data.', 'error');
+            } finally {
+                showLoadingIndicator(false);
             }
         }
 
-        function loadOverviewStats() {
-            // This would normally fetch data from Google Sheets
-            // For now, we'll use placeholder data
-            document.getElementById('totalAffiliates').textContent = '15';
-            document.getElementById('totalOrders').textContent = '42';
-            document.getElementById('totalRevenue').textContent = 'RM 1,257.80';
-        }
-
-        function loadAffiliates() {
-            // This would normally fetch data from Google Sheets
-            // For now, we'll use placeholder data
-            const affiliatesTableBody = document.getElementById('affiliatesTableBody');
-            
-            // This would normally fetch data from Google Sheets
-            const affiliatesTableBody = document.getElementById('affiliatesTableBody');
-            
-            // For now, we'll use placeholder data
-            affiliatesTableBody.innerHTML = `
-                <tr>
-                    <td>AFF123456789</td>
-                    <td>John Doe</td>
-                    <td>john@example.com</td>
-                    <td>0123456789</td>
-                    <td>2023-01-15</td>
-                    <td>Active</td>
-                    <td>
-                        <button class="btn btn-secondary" onclick="removeAffiliate('AFF123456789')">Remove</button>
-                    </td>
-                </tr>
-                <tr>
-                    <td>AFF987654321</td>
-                    <td>Jane Smith</td>
-                    <td>jane@example.com</td>
-                    <td>0123456789</td>
-                    <td>2023-01-20</td>
-                    <td>Active</td>
-                    <td>
-                        <button class="btn btn-secondary" onclick="removeAffiliate('AFF987654321')">Remove</button>
-                    </td>
-                </tr>
-            `;
-        }
-
-        function loadOrders() {
-            // This would normally fetch data from Google Sheets
-            // For now, we'll use placeholder data
-            const ordersTableBody = document.getElementById('ordersTableBody');
-            
-            // This would normally fetch data from Google Sheets
-            // For now, we'll use placeholder data
-            const ordersTableBody = document.getElementById('ordersTableBody');
-            
-            // This would normally fetch data from Google Sheets
-            // For now, we'll use placeholder data
-            ordersTableBody.innerHTML = `
-                <tr>
-                    <td>PS123456789</td>
-                    <td>Ahmad Ali</td>
-                    <td>ahmad@example.com</td>
-                    <td>0123456789</td>
-                    <td>2023-01-25</td>
-                    <td>Paid</td>
-                    <td>AFF123456789</td>
-                    <td>2023-01-25</td>
-                </tr>
-                <tr>
-                    <td>PS987654321</td>
-                    <td>Siti Nur</td>
-                    <td>siti@example.com</td>
-                    <td>0123456789</td>
-                    <td>2023-01-28</td>
-                    <td>Paid</td>
-                </tr>
-            `;
-        }
-
-        function removeAffiliate(affiliateCode) {
+        async function loadOverviewStats() {
             const adminKey = localStorage.getItem('adminKey');
+            const response = await fetch(GOOGLE_SCRIPT_URL, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                body: new URLSearchParams({ action: 'getAllOrders', adminKey: adminKey })
+            });
+            const result = await response.json();
             
-            if (!adminKey) {
-                showNotification('Admin session expired', 'error');
-                return;
+            if (result.status === 'success') {
+                const orders = result.orders;
+                let totalRevenue = 0;
+                orders.forEach(order => {
+                    if (order.status === 'Paid') {
+                        totalRevenue += parseFloat(order.amount || 0);
+                    }
+                });
+
+                document.getElementById('totalOrders').textContent = orders.length;
+                document.getElementById('totalRevenue').textContent = `RM ${totalRevenue.toFixed(2)}`;
+                
+                // Populate recent orders table
+                const recentOrdersTableBody = document.getElementById('recentOrdersTableBody');
+                recentOrdersTableBody.innerHTML = '';
+                orders.slice(-5).reverse().forEach(order => {
+                    const row = `
+                        <tr>
+                            <td>${order.orderId}</td>
+                            <td>${order.name}</td>
+                            <td>${order.email}</td>
+                            <td>RM ${order.amount}</td>
+                            <td>${order.status}</td>
+                            <td>${new Date(order.timestamp).toLocaleDateString('ms-MY')}</td>
+                        </tr>
+                    `;
+                    recentOrdersTableBody.innerHTML += row;
+                });
             }
+        }
+        
+        async function loadAffiliates() {
+            const adminKey = localStorage.getItem('adminKey');
+            const response = await fetch(GOOGLE_SCRIPT_URL, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                body: new URLSearchParams({ action: 'getAllAffiliates', adminKey: adminKey })
+            });
+            const result = await response.json();
+
+            if (result.status === 'success') {
+                document.getElementById('totalAffiliates').textContent = result.affiliates.length;
+                const affiliatesTableBody = document.getElementById('affiliatesTableBody');
+                affiliatesTableBody.innerHTML = '';
+                result.affiliates.forEach(affiliate => {
+                    const row = `
+                        <tr>
+                            <td>${affiliate.affiliateCode}</td>
+                            <td>${affiliate.name}</td>
+                            <td>${affiliate.email}</td>
+                            <td>${affiliate.phone}</td>
+                            <td>${new Date(affiliate.registrationDate).toLocaleDateString('ms-MY')}</td>
+                            <td>${affiliate.status}</td>
+                            <td><button class="btn btn-danger" onclick="removeAffiliate('${affiliate.affiliateCode}')">Remove</button></td>
+                        </tr>
+                    `;
+                    affiliatesTableBody.innerHTML += row;
+                });
+            }
+        }
+
+        async function loadAllOrders() {
+            const adminKey = localStorage.getItem('adminKey');
+            const response = await fetch(GOOGLE_SCRIPT_URL, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                body: new URLSearchParams({ action: 'getAllOrders', adminKey: adminKey })
+            });
+            const result = await response.json();
+
+            if (result.status === 'success') {
+                const allOrdersTableBody = document.getElementById('allOrdersTableBody');
+                allOrdersTableBody.innerHTML = '';
+                result.orders.reverse().forEach(order => {
+                    const row = `
+                        <tr>
+                            <td>${order.orderId}</td>
+                            <td>${order.name}</td>
+                            <td>${order.email}</td>
+                            <td>${order.phone}</td>
+                            <td>${order.package}</td>
+                            <td>RM ${order.amount}</td>
+                            <td>${order.referralCode || '-'}</td>
+                            <td>${order.status}</td>
+                            <td>${new Date(order.timestamp).toLocaleDateString('ms-MY')}</td>
+                        </tr>
+                    `;
+                    allOrdersTableBody.innerHTML += row;
+                });
+            }
+        }
+
+        async function removeAffiliate(affiliateCode) {
+            if (!confirm('Are you sure you want to remove this affiliate?')) return;
             
+            const adminKey = localStorage.getItem('adminKey');
+            showLoadingIndicator(true);
             try {
-                const response = fetch(GOOGLE_SCRIPT_URL, {
+                const response = await fetch(GOOGLE_SCRIPT_URL, {
                     method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/x-www-form-urlencoded',
-                    },
-                    body: new URLSearchParams({
-                        action: 'removeAffiliate',
-                        affiliateCode: affiliateCode,
-                        adminKey: adminKey
-                    })
+                    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                    body: new URLSearchParams({ action: 'removeAffiliate', affiliateCode: affiliateCode, adminKey: adminKey })
                 });
                 
                 const result = await response.json();
                 
                 if (result.status === 'success') {
                     showNotification('Affiliate removed successfully', 'success');
-                    loadAffiliates();
+                    loadAffiliates(); // Refresh the list
                 } else {
                     showNotification(result.message || 'Failed to remove affiliate', 'error');
                 }
             } catch (error) {
                 console.error('Error removing affiliate:', error);
                 showNotification('Error removing affiliate', 'error');
+            } finally {
+                showLoadingIndicator(false);
             }
         }
 
         function showNotification(message, type) {
             const notification = document.getElementById('notification');
             notification.textContent = message;
-            notification.className = `notification ${type}`;
-            notification.classList.add('show');
+            notification.className = `notification ${type} show`;
             
             setTimeout(() => {
                 notification.classList.remove('show');
             }, 3000);
         }
-
-        function showNotification(message, type) {
-            const notification = document.getElementById('notification');
-            notification.textContent = message;
-            notification.className = `notification ${type}`;
-            notification.classList.add('show');
-            
-            setTimeout(() => {
-                notification.classList.remove('show');
-            }, 3000);
-        }
-
-        function testConnection() {
-            try {
-                const response = await fetch(GOOGLE_SCRIPT_URL, {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/x-www-form-urlencoded',
-                    },
-                    body: new URLSearchParams({
-                        action: 'test'
-                    })
-                });
-                
-                const result = await response.json();
-                console.log('Connection test result:', result);
-                return result;
-            } catch (error) {
-                console.error('Connection test failed:', error);
-                return { error: error.message };
+        
+        function showLoadingIndicator(show) {
+            const indicator = document.getElementById('loadingIndicator');
+            if (show) {
+                indicator.classList.remove('hidden');
+            } else {
+                indicator.classList.add('hidden');
             }
         }
     </script>
