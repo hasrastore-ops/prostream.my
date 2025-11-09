@@ -1433,7 +1433,7 @@ formData.append('referralCode', orderData.referralCode || ''); // Add referral c
                     const formData = new FormData();
                     formData.append("payload_json", JSON.stringify({
     username: "PROSTREAM Payment Bot",
-    content: `💳 **Bukti Pembayaran QR Diterima!**\n**Nama:** ${orderData.name}\n**Email:** ${orderData.email}\n**No. Telefon:** ${orderData.phone}\n**Jumlah:** RM${orderData.amount}\n**Kod Rujukan:** ${orderData.referralCode || 'Tiada'}\n**Pengesahan Automatik:** ${verificationResult.verified ? '✅ Disahkan' : '❌ Gagal'}\n**Nama Dijumpai:** ${verificationResult.details?.nameFound ? '✅' : '❌'}\n**Status Dijumpai:** ${verificationResult.details?.statusFound ? '✅' : '❌'}\n**Jumlah Dijumpai:** ${verificationResult.details?.amountFound ? '✅' : '❌'}`
+    content: `💳 **Bukti Pembayaran QR Diterima!**\n**Nama:** ${orderData.name}\n**Email:** ${orderData.email}\n**No. Telefon:** ${orderData.phone}\n**Jumlah:** RM${orderData.amount}\n**Kod Rujukan:** ${localStorage.getItem('affiliateRefCode') || 'Tiada'}\n**Pengesahan Automatik:** ${verificationResult.verified ? '✅ Disahkan' : '❌ Gagal'}\n**Nama Dijumpai:** ${verificationResult.details?.nameFound ? '✅' : '❌'}\n**Status Dijumpai:** ${verificationResult.details?.statusFound ? '✅' : '❌'}\n**Jumlah Dijumpai:** ${verificationResult.details?.amountFound ? '✅' : '❌'}`
 }));
                     formData.append("file", fileInput.files[0]);
 
@@ -1529,3 +1529,4 @@ formData.append('referralCode', orderData.referralCode || ''); // Add referral c
 </body>
 
 </html>
+
