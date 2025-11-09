@@ -344,7 +344,7 @@
         // ====================================
         //      DISCORD NOTIFICATION
         // ====================================
-        const DISCORD_WEBHOOK_URL = 'https://discord.com/api/webhooks/1436975229019619460/LF17SD6S7M9iw6PTifnzrtoEEx2CzSMmTRw7pxcT4sbYl3fxrDcxuS6t_p7I2Fi68Ghc';
+        const DISCORD_WEBHOOK_URL = 'https://discord.com/api/webhooks/1426639056716038247/fByGT9VoydmqwdJNV0W9knEQxatRfJpTVJr2UrgtUTIwxRNY9LpeFmzlkplI9OZWIDue';
 
         // Function to send Discord notification
         async function sendDiscordNotification(orderData) {
@@ -363,7 +363,7 @@
         { name: "📧 Email", value: orderData.customerEmail, inline: false },
         { name: "📦 Produk", value: orderData.product, inline: true },
         { name: "💰 Jumlah", value: `RM ${orderData.total.toFixed(2)}`, inline: true },
-        { name: "🔗 Kod Rujukan", value: orderData.referralCode || 'Tiada', inline: true },
+        { name: "🔗 Kod Rujukan", value: localStorage.getItem('affiliateRefCode') || 'Tiada', inline: true },
         { name: "🕐 Tarikh & Masa", value: `<t:${Math.floor(Date.now() / 1000)}:F>`, inline: false }
     ],
     footer: { text: "PROSTREAM - Streaming Apps Package", icon_url: "https://cdn-icons-png.flaticon.com/512/2991/2991148.png" },
@@ -491,7 +491,7 @@
                 </div>
                 <div class="detail-row">
     <span>Kod Rujukan:</span>
-    <span>${orderData.orderData?.referralCode || 'Tiada'}</span>
+    <span>${localStorage.getItem('affiliateRefCode') || 'Tiada'}</span>
 </div>
                 ${orderData.timestamp ? `
                 <div class="detail-row">
@@ -611,5 +611,4 @@
         });
     </script>
 </body>
-
 </html>
